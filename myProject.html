@@ -1,0 +1,115 @@
+<html>
+        <head>
+             <title>Project</title>
+             <link rel="stylesheet" href="assetts/css/styleMyProject.css">
+       </head>
+<body>
+  
+      <nav>
+           <div class="left-side">
+             <a href="index.html"><img src="assetts/img/DWLogo.png" alt=""></a>
+  
+             <ol>
+                 <li><a href="index.html">Home</a></li>
+                 <li><a href="myProject.html">My Project</a></li>
+             </ol>
+           </div>
+           
+           <div class="right-side">
+             <a href="contact.html">Contact Me</a>
+           </div>
+      </nav>
+
+      <div class="blog">
+        <h2>ADD MY PROJECT</h2>
+       <div class="form-project"> 
+         <div class="container-form">
+            <form onsubmit="addBlog(event)">
+              <div>
+                <label for="input-project-name"> Name Project</label>
+                <input id="input-project-name">
+              </div>
+
+              <div class="date">
+                <div>
+                <label for="input-project-start-date"> Start Date</label> 
+                <input id="input-project-start-date" type="date">
+               </div>
+               
+               <div>               
+                <label for="input-project-end-date"> End Date </label>
+                <input id="input-project-end-date" type="date">
+              </div>
+              </div>
+              
+              <div>
+              <label>Techonologies</label>
+              <div class="checkbox">
+                    <label for="nodeJS">NodeJS</label>
+                    <input type="checkbox" id="nodeJS" value="NodeJS">
+                    <label for="reactJS">ReactJS</label>
+                    <input type="checkbox" id="reactJS" value="ReactJS">
+                    <label for="nextJS">NextJS</label>
+                    <input type="checkbox" id="nextJS" value="NextJs">
+                    <label for="typeScript">TypeScript</label>
+                   <input type="checkbox" id="typeScript" value="TypeScript">
+              </div> </div>
+
+              <div>
+                <label for="message">Description</label>
+                <textarea id="message"></textarea>
+              </div>
+
+              <div>
+              <label>Upload Image</label>
+            <div class="input-project-image-group">
+              <label for="input-project-image"></label>
+                <span><img src="assetts/img/file.png" alt="file"> </span>
+              <input type="file" id="input-project-image">
+            </div>
+          </div>
+          <div class="button-group">
+            <button type="submit">submit</button>
+        </div>
+        </form>
+       </div>
+      </div>
+    </div>
+    <hr class="line">
+
+
+<div id="contents" class="project-list">
+
+    <div class="project-card-item">
+      <div class="project-image">
+        <img src="assetts/img/JasonMomoa.jpg" alt="" />
+      </div>
+      <div class="project-content">
+        <h1>
+          <a href="myProject-detail.html" target="_blank">Pasar Coding di Indonesia Dinilai Masih Menjanjikan</a>
+        </h1>
+        <div class="detail-project-content">
+          12 Jul 2021 22:30 WIB | Ichsan Emrald Alamsyah
+        </div>
+        <p>
+          Ketimpangan sumber daya manusia (SDM) di sektor digital masih
+          menjadi isu yang belum terpecahkan. Berdasarkan penelitian
+          ManpowerGroup, ketimpangan SDM global, termasuk Indonesia,
+          meningkat dua kali lipat dalam satu dekade terakhir.
+        </p>
+        <img src="assetts/img/icon/node-js.png" alt=""/>
+        <img src="assetts/img/icon/react-js.png" alt=""/>
+        <img src="assetts/img/icon/typescript.png" alt=""/>
+        <img src="assetts/img/icon/next-js.png" alt=""/>
+        <div class="btn-group">
+            <button class="btn-edit">Edit</button>
+            <button class="btn-post">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="myProject.js"></script>
+</body>
+
+</html>
