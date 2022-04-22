@@ -1,5 +1,5 @@
-let projects = []
-const month = [
+  let projects = []
+  const month = [
     'Januari',
     'Februari',
     'Maret',
@@ -14,39 +14,74 @@ const month = [
     'Desember'
   ]
 
-function addBlog(event){
+  function addBlog(event){
     event.preventDefault()
 
-let nameProject = document.getElementById("input-project-name").value
-let startDate = document.getElementById("input-project-start-date").value
-let endDate = document.getElementById("input-project-end-date").value
-let description = document.getElementById("message").value
-let technologies = document.getElementById("nodeJS","reactJS", "nextJS","typeScript").value
-let image = document.getElementById("input-project-image")
-image = URL.createObjectURL(image.files[0])
+  let nameProject = document.getElementById("input-project-name").value
+  let startDate = document.getElementById("input-project-start-date").value
+  let endDate = document.getElementById("input-project-end-date").value
+  let description = document.getElementById("message").value
+  let technologies = document.getElementsByClassName("checkbox")
+  let image = document.getElementById("input-project-image")
+  image = URL.createObjectURL(image.files[0])
+  
+ 
+  let durationTime = Math.floor(endDate - startDate)
+  let duration = Math.floor(durationTime/1000 * 60 * 60 * 24)
 
-let project = {
+
+  let val = []  
+    for(let i = 0 ; i < technologies.length; i++){
+      if(technologies[i].checked === true){
+          if(technologies[i].value === '0') {
+              val.push(`<img src="assetts/img/icon/node-js.png" alt=""/>`)
+          } else if (technologies[i].value === '1') {
+              val.push(`<img src="assetts/img/icon/react-js.png" alt=""/>`)
+          } else if (technologies[i].value === '2') {
+              val.push(`<img src="assetts/img/icon/typescript.png" alt=""/>`)
+          } else {
+              val.push(`<img src="assetts/img/icon/next-js.png" alt=""/>`)
+          }
+      }
+  }  
+
+  let project = {
     nameProject : nameProject,
     startDate : startDate,
     endDate : endDate,
-    technologies : technologies,
+    duration : duration,
+    technologies : val.join(' '),
     description : description,
     image : image,
     postedAt : new Date()  
     }
-    
+
+    if(project.duration === 7){
+      project.duration = '1 Minggu'
+  } else if (project.duration === 14) {
+      project.duration = '2 Minggu'
+  } else if (project.duration === 21) {
+      project.duration = '3 Minggu' 
+  } else if (project.duration >= 29 && project.duration <= 31){
+      project.duration = '1 bulan'
+  } else if (project.duration >= 58 && project.duration <= 61){
+      project.duration = '2 bulan'
+  } else if (project.duration >= 87 && project.duration <= 93){
+      project.duration = '3 bulan'
+  } else {project.duration += ' hari'}
+
     projects.push(project)
+    console.log(val)
+    console.log(technologies)
     console.table(projects)
     renderBlog()
-}
-function renderBlog(){
-    
+  }
+  function renderBlog(){
     let containerProject = document.getElementById("contents")
-    //containerProject.innerHTML = firstBlogContent()
-
+    containerProject.innerHTML = firstCard()
     for(let i = 0; i < projects.length; i++){
-    containerProject.innerHTML +=`
-    <div class="project-card-item">
+    
+      containerProject.innerHTML +=`  <div class="project-card-item">
       <div class="project-image">
         <img src="${projects[i].image}" alt="" />
       </div>
@@ -55,27 +90,28 @@ function renderBlog(){
           <a href="myProject-detail.html" target="_blank">${projects[i].nameProject}</a>
         </h1>
         <div class="detail-project-content">
-          ${projects[i].endDate} | Ichsan Emrald Alamsyah
+          Durasi : ${projects[i].duration}
         </div>
         <p>
           ${projects[i].description}
         </p>
-        <img src="assetts/img/icon/node-js.png" alt=""/>
-        <img src="assetts/img/icon/react-js.png" alt=""/>
-        <img src="assetts/img/icon/typescript.png" alt=""/>
-        <img src="assetts/img/icon/next-js.png" alt=""/>
+        <ul>
+        ${projects[i].technologies}
+        </ul>
         <div class="btn-group">
             <button class="btn-edit">Edit</button>
             <button class="btn-post">Delete</button>
+          </div>
+          <div class="detail-project-content">
+            <p>Terupload ${getFullTime(projects[i].postedAt)}</p>
           </div>
         </div>
       </div> 
       `
     }
+  }
 
-}
-
-function getFullTime(time){
+  function getFullTime(time){
 
     console.log(time)
 
@@ -86,17 +122,12 @@ function getFullTime(time){
     const hour = time.getHours()
     const minute = time.getMinutes()
 
-    console.log(date)
-    console.log(month)
-    console.log(year)
-    console.log(hour)
-    console.log(minute) 
 
     return`${date} ${month[monthIndex]} ${year} ${hour}:${minute} WIB`
-}
+  } 
 
-function getDistanceTime(time){
-    console.log(time);
+  function getDistanceTime(time) {
+    //console.log(time);
     const distance = new Date() - new Date(time)
     
     const miliseconds = 1000
@@ -117,13 +148,15 @@ function getDistanceTime(time){
         let minuteDistance = Math.floor (distance / (miliseconds * secondInMinute))
         return minuteDistance + ' menit lalu '
     }
-    
+  }
 }
+setInterval(function () {
+  renderBlog()
+}, 2000)
 
-function firstBlogContent(){
-    return`
-    <div class="project-card-item">
-     <div class="project-image">
+  function firstCard(){
+    return  `<div class="project-card-item">
+    <div class="project-image">
       <img src="assetts/img/JasonMomoa.jpg" alt="" />
     </div>
     <div class="project-content">
@@ -144,11 +177,10 @@ function firstBlogContent(){
       <img src="assetts/img/icon/typescript.png" alt=""/>
       <img src="assetts/img/icon/next-js.png" alt=""/>
       <div class="btn-group">
-          <button class="btn-edit">Edit Post</button>
-          <button class="btn-post">Post Blog</button>
+          <button class="btn-edit">Edit</button>
+          <button class="btn-post">Delete</button>
         </div>
       </div>
     </div>
-   `
-}
-}
+    `
+  }
